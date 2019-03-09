@@ -1,26 +1,21 @@
-/*
-#include <iostream>
 #include "Game.h"
 #include "TextureManager.h"
-#include "LoaderParams.h"
 #include "InputHandler.h"
 #include "Player.h"
-#include "Enemy.h"
-#include "MenuState.h"
+#include "LoaderParams.h"
 #include "PlayState.h"
+#include <stdio.h>
 
 Game *Game::instance = 0;
 
-void Game::quit()
-{
-    std::cout << "Ending game.." << std::endl;
-    SDL_Quit();
-}
-
-bool Game::init(const char *title, int xpos, int ypos, int height, int width, int fullScreen)
+/**
+ * Note to self
+ * Might want to remove assetloading and 
+ * gameobject initialization to the actual state they are used.
+ */
+bool Game::init(const char *title, int xpos, int ypos, int width, int height, int fullScreen)
 {
     int flags = SDL_WINDOW_SHOWN;
-
     if (fullScreen)
     {
         flags = SDL_WINDOW_FULLSCREEN;
@@ -28,50 +23,39 @@ bool Game::init(const char *title, int xpos, int ypos, int height, int width, in
 
     if (SDL_Init(SDL_INIT_EVERYTHING) < 0)
     {
-        std::cerr << "SDL_Init Error: " << SDL_GetError() << std::endl;
+        printf("SDL_Init error: %s\n", SDL_GetError());
         return false;
     }
 
-    m_pWindow = SDL_CreateWindow(title, xpos, ypos, height, width, flags);
+    m_pWindow = SDL_CreateWindow(title, xpos, ypos, width, height, flags);
     if (!m_pWindow)
     {
-        std::cerr << "SDL_CreateWindow Error: " << SDL_GetError() << std::endl;
+        printf("SDL_CreateWindow error: %s\n", SDL_GetError());
         return false;
     }
 
     m_pRenderer = SDL_CreateRenderer(m_pWindow, -1, 0);
     if (!m_pRenderer)
     {
-        std::cerr << "SDL_CreateRenderer Error: " << SDL_GetError() << std::endl;
+        printf("SDL_CreateRenderer error: %s\n", SDL_GetError());
         return false;
     }
 
-    SDL_SetRenderDrawColor(m_pRenderer, 255, 0, 0, 255);
-
+    //TheTextureManager::getInstance()->load("assets/animate-alpha.png", "animate", m_pRenderer);
     TheInputHandler::getInstance()->initialiseJoysticks();
-    TheTextureManager::getInstance()->load("assets/animate-alpha.png", "animate", m_pRenderer);
 
-    Player *player = new Player(new LoaderParams(100, 100, 128, 82, "animate"));
-    Enemy *enemy = new Enemy(new LoaderParams(300, 300, 128, 82, "animate"));
+    //Player *player = new Player(new LoaderParams(100, 100, 128, 82, "animate"));
 
-    m_gameObjects.push_back(player);
-    m_gameObjects.push_back(enemy);
+    //m_gameObjects.push_back(player);
 
     m_bRunning = true;
 
     m_pGameStateMachine = new GameStateMachine();
-    m_pGameStateMachine->changeState(new MenuState());
+    m_pGameStateMachine->changeState(new PlayState());
+
+    SDL_SetRenderDrawColor(m_pRenderer, 255, 0, 0, 255);
 
     return true;
-}
-
-void Game::render()
-{
-    SDL_RenderClear(m_pRenderer);
-
-    // m_pGameStateMachine->render();
-
-    SDL_RenderPresent(m_pRenderer);
 }
 
 void Game::handleEvents()
@@ -81,7 +65,19 @@ void Game::handleEvents()
 
 void Game::update()
 {
-    // m_pGameStateMachine->update();
+    m_pGameStateMachine->update();
+}
+
+void Game::render()
+{
+    SDL_RenderClear(m_pRenderer);
+    m_pGameStateMachine->render();
+    SDL_RenderPresent(m_pRenderer);
+}
+
+void Game::quit()
+{
+    clean();
 }
 
 void Game::clean()
@@ -94,4 +90,3 @@ void Game::clean()
     SDL_DestroyWindow(m_pWindow);
     SDL_Quit();
 }
-*/

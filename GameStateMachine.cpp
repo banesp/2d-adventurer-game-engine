@@ -1,4 +1,5 @@
 #include "GameStateMachine.h"
+#include <stdio.h>
 
 void GameStateMachine::pushState(GameState *pState)
 {
@@ -39,8 +40,10 @@ void GameStateMachine::popState()
 
 void GameStateMachine::update()
 {
+    printf("GameStateMachine::update\n");
     if (!mGameStates.empty())
     {
+        printf("GameStateMachine::update is not empty!\n");
         mGameStates.back()->render();
     }
 }

@@ -1,10 +1,11 @@
 #ifndef __GAME_H__
 #define __GAME_H__
 
-#include <vector>
+#include "GameObject.h"
+#include "GameStateMachine.h"
+
 #include <SDL2/SDL.h>
-//#include "GameObject.h"
-//#include "GameStateMachine.h"
+#include <vector>
 
 class Game
 {
@@ -37,12 +38,10 @@ class Game
         return m_pRenderer;
     }
 
-    /*
     GameStateMachine *getStateMachine()
     {
         return m_pGameStateMachine;
     }
-    */
 
   private:
     Game() {}
@@ -56,9 +55,9 @@ class Game
 
     int currentFrame;
 
-    // std::vector<GameObject *> m_gameObjects;
+    std::vector<GameObject *> m_gameObjects;
 
-    //GameStateMachine *m_pGameStateMachine;
+    GameStateMachine *m_pGameStateMachine;
 };
 
 typedef Game TheGame;
