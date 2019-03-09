@@ -1,3 +1,6 @@
+#ifndef __LTEXTURE_H__
+#define __LTEXTURE_H__
+
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 #include <string>
@@ -42,3 +45,5 @@ private:
   int mWidth;
   int mHeight;
 };
+
+#endif
