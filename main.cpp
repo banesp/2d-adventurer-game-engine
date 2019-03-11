@@ -2,33 +2,31 @@
 #include <SDL2/SDL.h>
 #include <stdio.h>
 
-const int FRAMES_PER_SECOND = 60;
-const int DELAY_TIME = 1000.0f / FRAMES_PER_SECOND;
+const int FPS = 60;
+const int DELAY_TIME = 1000.0f / FPS;
 
 const int SCREEN_WIDTH = 640;
 const int SCREEN_HEIGHT = 480;
+const int SCREEN_FULLSCREEN = false;
 
 int main(int argc, char *args[])
 {
-    printf("Starting up adventurer..\n");
     Uint32 frameStart, frameTime;
-    Game *game = TheGame::getInstance();
 
-    if (!game->init("Adventurer", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, SCREEN_WIDTH, SCREEN_HEIGHT, false))
+    if (!TheGame::getInstance()->init("Adventurer", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_FULLSCREEN))
     {
-        printf("Could not initialize game\n");
+        printf("Initialization failed. SDL Error: %s\n", SDL_GetError());
         return -1;
     }
 
-    printf("Game successfully initialized\n");
-
-    while (game->running())
+    printf("Initialization successful. Starting gameloop\n");
+    while (TheGame::getInstance()->running())
     {
         frameStart = SDL_GetTicks();
 
-        game->handleEvents();
-        game->update();
-        game->render();
+        TheGame::getInstance()->handleEvents();
+        TheGame::getInstance()->update();
+        TheGame::getInstance()->render();
 
         frameTime = SDL_GetTicks() - frameStart;
 
@@ -36,11 +34,10 @@ int main(int argc, char *args[])
         {
             SDL_Delay((int)(DELAY_TIME - frameTime));
         }
-
-        printf("End of game loop\n");
     }
 
-    game->clean();
+    printf("Quiting game..\n");
+    TheGame::getInstance()->clean();
 
     return 0;
 }

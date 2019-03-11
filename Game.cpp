@@ -41,12 +41,14 @@ bool Game::init(const char *title, int xpos, int ypos, int width, int height, in
         return false;
     }
 
-    //TheTextureManager::getInstance()->load("assets/animate-alpha.png", "animate", m_pRenderer);
+/*
+    TheTextureManager::getInstance()->load("assets/animate-alpha.png", "animate", m_pRenderer);
     TheInputHandler::getInstance()->initialiseJoysticks();
 
-    //Player *player = new Player(new LoaderParams(100, 100, 128, 82, "animate"));
+    Player *player = new Player(new LoaderParams(100, 100, 128, 82, "animate"));
 
-    //m_gameObjects.push_back(player);
+    m_gameObjects.push_back(player);
+*/
 
     m_bRunning = true;
 
@@ -54,7 +56,6 @@ bool Game::init(const char *title, int xpos, int ypos, int width, int height, in
     m_pGameStateMachine->changeState(new PlayState());
 
     SDL_SetRenderDrawColor(m_pRenderer, 255, 0, 0, 255);
-
     return true;
 }
 
