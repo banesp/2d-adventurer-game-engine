@@ -11,15 +11,16 @@ class Game
 public:
   static Game *getInstance()
   {
-    if (!s_pInstance)
+    if (s_pInstance == 0)
     {
       s_pInstance = new Game();
+      return s_pInstance;
     }
 
     return s_pInstance;
   }
 
-  bool init(const char *title, int xpos, int ypos, int height, int width, int fullscreen);
+  bool init(const char *title, int xpos, int ypos, int width, int height, bool fullscreen);
 
   void render();
   void update();
@@ -27,20 +28,20 @@ public:
   void clean();
 
   SDL_Renderer *getRenderer() const { return m_pRenderer; }
-  SDL_Window *SDL_GetWindow() const { return m_pWindow; }
+  SDL_Window *getWindow() const { return m_pWindow; }
   GameStateMachine *getStateMachine() { return m_pGameStateMachine; }
 
   void setPlayerLives(int lives) { m_playerLives = lives; }
   int getPlayerLives() { return m_playerLives; }
 
-  void setCurrentLevel(int currentLevel); // { m_currentLevel = currentLevel; }
+  void setCurrentLevel(int currentLevel);
   const int getCurrentLevel() { return m_currentLevel; }
 
   void setNextLevel(int nextLevel) { m_nextLevel = nextLevel; }
   const int getNextLevel() { return m_nextLevel; }
 
-  void setLevelComplete(int levelComplete) { m_bLevelComplete = levelComplete; }
-  const int getLevelComplete() { return m_bLevelComplete; }
+  void setLevelComplete(bool levelComplete) { m_bLevelComplete = levelComplete; }
+  const bool getLevelComplete() { return m_bLevelComplete; }
 
   bool running() { return m_bRunning; }
 
@@ -48,26 +49,21 @@ public:
 
   int getGameWidth() const { return m_gameWidth; }
   int getGameHeight() const { return m_gameHeight; }
-  float getScrollSpeed() { return m_scrollSpeed; }
 
-  bool changingState() { return m_bChangingState; }
-  void changingState(bool cs) { m_bChangingState = cs; }
+  std::vector<std::string> getLevelFiles() { return m_levelFiles; }
 
 private:
-  static Game *s_pInstance;
-
-  bool m_bChangingState;
-
   SDL_Window *m_pWindow;
   SDL_Renderer *m_pRenderer;
 
   GameStateMachine *m_pGameStateMachine;
 
   bool m_bRunning;
+
+  static Game *s_pInstance;
+
   int m_gameWidth;
   int m_gameHeight;
-  float m_scrollSpeed;
-
   int m_playerLives;
 
   int m_currentLevel;
@@ -76,28 +72,8 @@ private:
 
   std::vector<std::string> m_levelFiles;
 
-  Game() : m_pWindow(0),
-           m_pRenderer(0),
-           m_bRunning(false),
-           m_pGameStateMachine(0),
-           m_playerLives(3),
-           m_scrollSpeed(0.8),
-           m_bLevelComplete(false),
-           m_bChangingState(false)
-  {
-    // Add levels
-    m_levelFiles.push_back("assets/map1.tmx");
-    m_levelFiles.push_back("assets/map2.tmx");
-
-    // Set start level
-    m_currentLevel = 1;
-  }
-
-  ~Game()
-  {
-    m_pRenderer = 0;
-    m_pWindow = 0;
-  }
+  Game();
+  ~Game();
 
   Game(const Game &);
   Game &operator=(const Game &);
@@ -105,4 +81,4 @@ private:
 
 typedef Game TheGame;
 
-#endif
+#endif /* defined(__SDL_Game_Programming_Book__Game__) */

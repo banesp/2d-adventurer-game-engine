@@ -2,29 +2,35 @@
 #define __PLAY_STATE_H__
 
 #include "GameState.h"
-#include "GameObject.h"
-#include "SDLGameObject.h"
-#include <iostream>
+#include "CollisionManager.h"
+#include "Level.h"
 #include <vector>
+
+class GameObject;
+class SDLGameObject;
+class Level;
 
 class PlayState : public GameState
 {
 public:
-  virtual bool onEnter();
-  virtual bool onExit();
+  virtual ~PlayState() { delete pLevel; }
+
   virtual void update();
   virtual void render();
 
-  virtual std::string getStateId() const
-  {
-    return sPlayId;
-  }
+  virtual bool onEnter();
+  virtual bool onExit();
 
-  bool checkCollision(SDLGameObject *p1, SDLGameObject *p2);
+  virtual std::string getStateID() const { return s_playID; }
 
 private:
-  static const std::string sPlayId;
-  std::vector<GameObject *> mGameObjects;
+  static const std::string s_playID;
+
+  CollisionManager m_collisionManager;
+
+  std::vector<GameObject *> m_gameObjects;
+
+  Level *pLevel;
 };
 
 #endif

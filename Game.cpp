@@ -1,42 +1,41 @@
 #include "Game.h"
 #include "TextureManager.h"
 #include "InputHandler.h"
-#include "Player.h"
 #include "LoaderParams.h"
-// #include "PlayState.h"
+#include "PlayState.h"
+#include "ScrollingBackground.h"
 #include "MainMenuState.h"
+#include "MenuButton.h"
+#include "Player.h"
+#include "GameOverState.h"
+#include "AnimatedGraphic.h"
+#include "Snail.h"
 #include <stdio.h>
 #include <iostream>
 
 Game *Game::s_pInstance = 0;
-
-/*
 Game::Game() : m_pWindow(0),
                m_pRenderer(0),
                m_bRunning(false),
                m_pGameStateMachine(0),
                m_playerLives(3),
-               m_scrollSpeed(0.8),
-               m_bLevelComplete(false),
-               m_bChangingState(false)
+               m_bLevelComplete(false)
 {
-    // Add levels
+    // add some level files to an array
     m_levelFiles.push_back("assets/map1.tmx");
-    m_levelFiles.push_back("assets/map2.tmx");
 
-    // Set start level
+    // start at this level
     m_currentLevel = 1;
 }
-*/
-/*
+
 Game::~Game()
 {
+    // we must clean up after ourselves to prevent memory leaks
     m_pRenderer = 0;
     m_pWindow = 0;
 }
-*/
 
-bool Game::init(const char *title, int xpos, int ypos, int width, int height, int fullScreen)
+bool Game::init(const char *title, int xpos, int ypos, int width, int height, bool fullscreen)
 {
     int flags = 0;
 
@@ -44,7 +43,7 @@ bool Game::init(const char *title, int xpos, int ypos, int width, int height, in
     m_gameWidth = width;
     m_gameHeight = height;
 
-    if (fullScreen)
+    if (fullscreen)
     {
         flags = SDL_WINDOW_FULLSCREEN;
     }
@@ -69,8 +68,12 @@ bool Game::init(const char *title, int xpos, int ypos, int width, int height, in
         return false;
     }
 
-    // register game types
-    // TODO: Implement gameobject factory, player, playercreator
+    // Register game types
+    TheGameObjectFactory::Instance()->registerType("MenuButton", new MenuButtonCreator());
+    TheGameObjectFactory::Instance()->registerType("Player", new PlayerCreator());
+    TheGameObjectFactory::Instance()->registerType("AnimatedGraphic", new AnimatedGraphicCreator());
+    TheGameObjectFactory::Instance()->registerType("ScrollingBackground", new ScrollingBackgroundCreator());
+    TheGameObjectFactory::Instance()->registerType("Snail", new SnailCreator());
 
     m_bRunning = true;
 
@@ -83,7 +86,7 @@ bool Game::init(const char *title, int xpos, int ypos, int width, int height, in
 void Game::setCurrentLevel(int currentLevel)
 {
     m_currentLevel = currentLevel;
-    // m_pGameStateMachine->changeState(new GameOverState());
+    m_pGameStateMachine->changeState(new GameOverState());
     m_bLevelComplete = false;
 }
 

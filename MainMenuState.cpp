@@ -1,12 +1,3 @@
-//
-//  MenuState.cpp
-//  SDL Game Programming Book
-//
-//  Created by shaun mitchell on 09/02/2013.
-//  Copyright (c) 2013 shaun mitchell. All rights reserved.
-//
-
-#include <iostream>
 #include "MainMenuState.h"
 #include "TextureManager.h"
 #include "Game.h"
@@ -14,13 +5,14 @@
 #include "PlayState.h"
 #include "InputHandler.h"
 #include "StateParser.h"
+#include <iostream>
 
 const std::string MainMenuState::s_menuID = "MENU";
 
 // Callbacks
 void MainMenuState::s_menuToPlay()
 {
-    //TheGame::getInstance()->getStateMachine()->changeState(new PlayState());
+    TheGame::getInstance()->getStateMachine()->changeState(new PlayState());
 }
 
 void MainMenuState::s_exitFromMenu()

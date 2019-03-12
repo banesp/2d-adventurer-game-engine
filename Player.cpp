@@ -49,13 +49,32 @@ void Player::draw()
 {
   if (m_bFlipped)
   {
-    TheTextureManager::getInstance()->drawFrame(m_textureID, (Uint32)m_position.getX() - TheCamera::getInstance()->getPosition().m_x, (Uint32)m_position.getY() - TheCamera::getInstance()->getPosition().m_y,
-                                             m_width, m_height, m_currentRow, m_currentFrame, TheGame::getInstance()->getRenderer(), m_angle, m_alpha, SDL_FLIP_HORIZONTAL);
+    TheTextureManager::getInstance()->drawFrame(
+        m_textureID,
+        (Uint32)m_position.getX() - TheCamera::getInstance()->getPosition().m_x,
+        (Uint32)m_position.getY() - TheCamera::getInstance()->getPosition().m_y,
+        m_width,
+        m_height,
+        m_currentRow,
+        m_currentFrame,
+        TheGame::getInstance()->getRenderer(),
+        m_angle,
+        m_alpha,
+        SDL_FLIP_HORIZONTAL);
   }
   else
   {
-    TheTextureManager::getInstance()->drawFrame(m_textureID, (Uint32)m_position.getX() - TheCamera::getInstance()->getPosition().m_x, (Uint32)m_position.getY() - TheCamera::getInstance()->getPosition().m_y,
-                                             m_width, m_height, m_currentRow, m_currentFrame, TheGame::getInstance()->getRenderer(), m_angle, m_alpha);
+    TheTextureManager::getInstance()->drawFrame(
+        m_textureID,
+        (Uint32)m_position.getX() - TheCamera::getInstance()->getPosition().m_x,
+        (Uint32)m_position.getY() - TheCamera::getInstance()->getPosition().m_y,
+        m_width,
+        m_height,
+        m_currentRow,
+        m_currentFrame,
+        TheGame::getInstance()->getRenderer(),
+        m_angle,
+        m_alpha);
   }
 }
 
