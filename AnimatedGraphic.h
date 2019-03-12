@@ -1,21 +1,45 @@
-#ifndef __ANIMATED_GRAPHIC_H__
-#define __ANIMATED_GRAPHIC_H__
+//
+//  AnimatedGraphic.h
+//  SDL Game Programming Book
+//
+//  Created by shaun mitchell on 17/02/2013.
+//  Copyright (c) 2013 shaun mitchell. All rights reserved.
+//
 
-#include "SDLGameObject.h"
-#include "LoaderParams.h"
-#include <SDL2/SDL.h>
+#ifndef __SDL_Game_Programming_Book__AnimatedGraphic__
+#define __SDL_Game_Programming_Book__AnimatedGraphic__
 
-class AnimatedGraphic : public SDLGameObject
+#include <iostream>
+#include "GameObjectFactory.h"
+#include "PlatformerObject.h"
+
+class AnimatedGraphic : public PlatformerObject
 {
 public:
-  AnimatedGraphic(const LoaderParams *pParams, int animSpeed);
-
-  virtual void update();
-  virtual void draw();
-  virtual void clean();
-
+    
+    AnimatedGraphic();
+    virtual ~AnimatedGraphic() {}
+    
+    virtual void load(std::unique_ptr<LoaderParams> const &pParams);
+    
+    virtual void draw();
+    virtual void update();
+    virtual void clean();
+    
 private:
-  int m_animSpeed;
+    
+    int m_animSpeed;
+    int m_frameCount;
 };
 
-#endif
+class AnimatedGraphicCreator : public BaseCreator
+{
+public:
+    
+    virtual GameObject* createGameObject() const
+    {
+        return new AnimatedGraphic();
+    }
+};
+
+#endif /* defined(__SDL_Game_Programming_Book__AnimatedGraphic__) */

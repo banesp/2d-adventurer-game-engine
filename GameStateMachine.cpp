@@ -11,7 +11,7 @@ void GameStateMachine::changeState(GameState *pState)
 {
     if (!mGameStates.empty())
     {
-        if (mGameStates.back()->getStateId() != pState->getStateId())
+        if (mGameStates.back()->getStateID() != pState->getStateID())
         {
             if (mGameStates.back()->onExit())
             {

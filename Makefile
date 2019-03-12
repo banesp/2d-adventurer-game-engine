@@ -1,5 +1,5 @@
 # OBJS specifies which files to compile as part of the project
-OBJS = main.cpp InputHandler.cpp TextureManager.cpp Game.cpp GameStateMachine.cpp PlayState.cpp AnimatedGraphic.cpp SDLGameObject.cpp Player.cpp
+OBJS = AnimatedGraphic.cpp base64.cpp Camera.cpp Game.cpp GameObjectFactory.cpp GameStateMachine.cpp InputHandler.cpp Level.cpp LevelParser.cpp PlatformerObject.cpp Player.cpp PlayState.cpp TextureManager.cpp TileLayer.cpp main.cpp CollisionManager.cpp ObjectLayer.cpp MainMenuState.cpp StateParser.cpp MenuButton.cpp
 
 # CC specifies which compiler we're using
 CC = g++
@@ -9,7 +9,7 @@ CC = g++
 COMPILER_FLAGS = -w
 
 # LINKER_FLAGS specifies the libraries we're linking against
-LINKER_FLAGS = -lSDL2 -lSDL2_image -lSDL2_ttf
+LINKER_FLAGS = -lSDL2 -lSDL2_image -lSDL2_ttf -ltinyxml -lz
 
 # OBJ_NAME specifies the name of our executable
 OBJ_NAME = main

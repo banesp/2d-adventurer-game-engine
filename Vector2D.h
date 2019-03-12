@@ -1,85 +1,91 @@
-#ifndef __VECTOR2D_H__
-#define __VECTOR2D_H__
+//
+//  Vector2D.h
+//  SDL Game Programming Book
+//
+//  Created by shaun mitchell on 27/01/2013.
+//  Copyright (c) 2013 shaun mitchell. All rights reserved.
+//
 
-#include<math.h>
+#ifndef __SDL_Game_Programming_Book__Vector2D__
+#define __SDL_Game_Programming_Book__Vector2D__
+
+#include <iostream>
+#include <math.h>
 
 class Vector2D
 {
-    public:
-        Vector2D(float pX, float pY): x(pX), y(pY) {}
+  public:
+    Vector2D()
+    {
+        m_x = 0;
+        m_y = 0;
+    }
 
-        float getX() const { return x; }
-        float getY() const { return y; }
+    Vector2D(float x, float y) : m_x(x), m_y(y) {}
 
-        void setX(float pX) { x = pX; }
-        void setY(float pY) { y = pY; }
+    const float getX() { return m_x; }
+    const float getY() { return m_y; }
 
-        float length() { return sqrt(x * x + y * y); }
+    void setX(float x) { m_x = x; }
+    void setY(float y) { m_y = y; }
 
-        Vector2D operator+(const Vector2D vectorSource) const
+    int length() { return sqrt(m_x * m_x + m_y * m_y); }
+
+    Vector2D operator+(const Vector2D &v2) const { return Vector2D(m_x + v2.m_x, m_y + v2.m_y); }
+    friend Vector2D &operator+=(Vector2D &v1, const Vector2D &v2)
+    {
+        v1.m_x += v2.m_x;
+        v1.m_y += v2.m_y;
+
+        return v1;
+    }
+
+    Vector2D operator-(const Vector2D &v2) const { return Vector2D(m_x - v2.m_x, m_y - v2.m_y); }
+    friend Vector2D &operator-=(Vector2D &v1, const Vector2D &v2)
+    {
+        v1.m_x -= v2.m_x;
+        v1.m_y -= v2.m_y;
+
+        return v1;
+    }
+
+    Vector2D operator*(float scalar)
+    {
+        return Vector2D(m_x * scalar, m_y * scalar);
+    }
+
+    Vector2D &operator*=(float scalar)
+    {
+        m_x *= scalar;
+        m_y *= scalar;
+
+        return *this;
+    }
+
+    Vector2D operator/(float scalar)
+    {
+        return Vector2D(m_x / scalar, m_y / scalar);
+    }
+
+    Vector2D &operator/=(float scalar)
+    {
+        m_x /= scalar;
+        m_y /= scalar;
+
+        return *this;
+    }
+
+    void normalize()
+    {
+        int l = length();
+        if (l > 0)
         {
-            return Vector2D(x + vectorSource.x, y + vectorSource.y);
+            (*this) *= 1 / l;
         }
+    }
 
-        friend Vector2D& operator+=(Vector2D &vectorDestination, Vector2D &vectorSource)
-        {
-            vectorDestination.x += vectorSource.x;
-            vectorDestination.y += vectorSource.y;
-
-            return vectorDestination;
-        }
-
-        Vector2D operator*(float scalar)
-        {
-            return Vector2D(x * scalar, y * scalar);
-        }
-
-        Vector2D operator*=(float scalar)
-        {
-            x *= scalar;
-            y *= scalar;
-
-            return *this;
-        }
-
-        Vector2D operator-(const Vector2D &vectorSource) const
-        {
-            return Vector2D(x - vectorSource.x, y - vectorSource.y);
-        }
-
-        friend Vector2D operator-=(Vector2D &vectorDestination, Vector2D &vectorSource)
-        {
-            vectorDestination.x -= vectorSource.x;
-            vectorDestination.y -= vectorSource.y;
-
-            return vectorDestination;
-        }
-
-        Vector2D operator/(float scalar)
-        {
-            return Vector2D(x / scalar, y / scalar);
-        }
-
-        Vector2D& operator/=(float scalar)
-        {
-            x /= scalar;
-            y /= scalar;
-
-            return *this;
-        }
-
-        void normalize()
-        {
-            float vectorLength = length();
-
-            if (vectorLength > 0) {
-                (*this) *= 1 / vectorLength;
-            }
-        }
-
-    private:
-        float x;
-        float y;
+    float m_x;
+    float m_y;
 };
 
-#endif
+#endif /* defined(__SDL_Game_Programming_Book__Vector2D__) */

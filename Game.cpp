@@ -3,25 +3,53 @@
 #include "InputHandler.h"
 #include "Player.h"
 #include "LoaderParams.h"
-#include "PlayState.h"
+// #include "PlayState.h"
+#include "MainMenuState.h"
 #include <stdio.h>
+#include <iostream>
 
-Game *Game::instance = 0;
+Game *Game::s_pInstance = 0;
 
-/**
- * Note to self
- * Might want to remove assetloading and 
- * gameobject initialization to the actual state they are used.
- */
+/*
+Game::Game() : m_pWindow(0),
+               m_pRenderer(0),
+               m_bRunning(false),
+               m_pGameStateMachine(0),
+               m_playerLives(3),
+               m_scrollSpeed(0.8),
+               m_bLevelComplete(false),
+               m_bChangingState(false)
+{
+    // Add levels
+    m_levelFiles.push_back("assets/map1.tmx");
+    m_levelFiles.push_back("assets/map2.tmx");
+
+    // Set start level
+    m_currentLevel = 1;
+}
+*/
+/*
+Game::~Game()
+{
+    m_pRenderer = 0;
+    m_pWindow = 0;
+}
+*/
+
 bool Game::init(const char *title, int xpos, int ypos, int width, int height, int fullScreen)
 {
-    int flags = SDL_WINDOW_SHOWN;
+    int flags = 0;
+
+    // Store game width and height
+    m_gameWidth = width;
+    m_gameHeight = height;
+
     if (fullScreen)
     {
         flags = SDL_WINDOW_FULLSCREEN;
     }
 
-    if (SDL_Init(SDL_INIT_EVERYTHING) < 0)
+    if (SDL_Init(SDL_INIT_EVERYTHING) != 0)
     {
         printf("SDL_Init error: %s\n", SDL_GetError());
         return false;
@@ -41,22 +69,22 @@ bool Game::init(const char *title, int xpos, int ypos, int width, int height, in
         return false;
     }
 
-/*
-    TheTextureManager::getInstance()->load("assets/animate-alpha.png", "animate", m_pRenderer);
-    TheInputHandler::getInstance()->initialiseJoysticks();
-
-    Player *player = new Player(new LoaderParams(100, 100, 128, 82, "animate"));
-
-    m_gameObjects.push_back(player);
-*/
+    // register game types
+    // TODO: Implement gameobject factory, player, playercreator
 
     m_bRunning = true;
 
     m_pGameStateMachine = new GameStateMachine();
-    m_pGameStateMachine->changeState(new PlayState());
+    m_pGameStateMachine->changeState(new MainMenuState());
 
-    SDL_SetRenderDrawColor(m_pRenderer, 255, 0, 0, 255);
     return true;
+}
+
+void Game::setCurrentLevel(int currentLevel)
+{
+    m_currentLevel = currentLevel;
+    // m_pGameStateMachine->changeState(new GameOverState());
+    m_bLevelComplete = false;
 }
 
 void Game::handleEvents()
@@ -72,22 +100,27 @@ void Game::update()
 void Game::render()
 {
     SDL_RenderClear(m_pRenderer);
-    m_pGameStateMachine->render();
-    SDL_RenderPresent(m_pRenderer);
-}
 
-void Game::quit()
-{
-    clean();
+    m_pGameStateMachine->render();
+
+    SDL_RenderPresent(m_pRenderer);
 }
 
 void Game::clean()
 {
+    std::cout << "Cleaning out game resources..\n";
+
     TheInputHandler::getInstance()->clean();
 
-    m_bRunning = false;
+    m_pGameStateMachine = 0;
+    delete m_pGameStateMachine;
 
-    SDL_DestroyRenderer(m_pRenderer);
+    TheTextureManager::getInstance()->clearTextureMap(); // clearFromTextureMap
+
     SDL_DestroyWindow(m_pWindow);
+    SDL_DestroyRenderer(m_pRenderer);
     SDL_Quit();
+
+    m_pRenderer = 0;
+    m_pWindow = 0;
 }
