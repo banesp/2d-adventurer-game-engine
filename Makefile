@@ -1,5 +1,5 @@
 # OBJS specifies which files to compile as part of the project
-OBJS = AnimatedGraphic.cpp base64.cpp Camera.cpp Game.cpp GameObjectFactory.cpp GameStateMachine.cpp InputHandler.cpp Level.cpp LevelParser.cpp PlatformerObject.cpp Player.cpp PlayState.cpp TextureManager.cpp TileLayer.cpp main.cpp CollisionManager.cpp ObjectLayer.cpp MainMenuState.cpp StateParser.cpp MenuButton.cpp GameOverState.cpp PauseState.cpp ScrollingBackground.cpp
+OBJS = AnimatedGraphic.cpp base64.cpp Camera.cpp Game.cpp GameObjectFactory.cpp GameStateMachine.cpp InputHandler.cpp Level.cpp LevelParser.cpp PlatformerObject.cpp Player.cpp PlayState.cpp TextureManager.cpp TileLayer.cpp main.cpp CollisionManager.cpp ObjectLayer.cpp MainMenuState.cpp StateParser.cpp MenuButton.cpp GameOverState.cpp PauseState.cpp ScrollingBackground.cpp 
 
 # CC specifies which compiler we're using
 CC = g++

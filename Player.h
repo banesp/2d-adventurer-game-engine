@@ -9,7 +9,6 @@
 class Player : public PlatformerObject
 {
 public:
-public:
   Player();
   virtual ~Player() {}
 
