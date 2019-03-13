@@ -22,7 +22,7 @@ class Jewel : public PlatformerObject
 
     virtual void update()
     {
-        // doing nothing..
+        // doing nothing for now..
     }
 
     virtual void load(std::unique_ptr<LoaderParams> const &pParams)

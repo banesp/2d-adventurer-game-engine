@@ -65,6 +65,7 @@ bool PlayState::onEnter()
     }
 
     std::cout << "entering PlayState\n";
+
     return true;
 }
 
@@ -75,5 +76,6 @@ bool PlayState::onExit()
     TheInputHandler::getInstance()->reset();
 
     std::cout << "exiting PlayState\n";
+
     return true;
 }
