@@ -4,7 +4,7 @@
 #include "Enemy.h"
 #include "TileLayer.h"
 #include "Game.h"
-#include "GameOverState.h"
+#include "MainMenuState.h"
 #include <iostream>
 
 void CollisionManager::checkPlayerGameObjectCollision(Player *pPlayer, const std::vector<GameObject *> &objects)
@@ -45,7 +45,7 @@ void CollisionManager::checkPlayerGameObjectCollision(Player *pPlayer, const std
             else if (objects[i]->type() == std::string("Jewel"))
             {
                 std::cout << "Player collided with jewel\n";
-                TheGame::getInstance()->getStateMachine()->changeState(new GameOverState());
+                TheGame::getInstance()->getStateMachine()->changeState(new MainMenuState());
             }
         }
 

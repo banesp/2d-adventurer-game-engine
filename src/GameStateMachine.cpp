@@ -2,55 +2,67 @@
 #include <stdio.h>
 #include <iostream>
 
-void GameStateMachine::pushState(GameState *pState)
+void GameStateMachine::clean()
 {
-    mGameStates.push_back(pState);
-    mGameStates.back()->onEnter();
-}
-
-void GameStateMachine::changeState(GameState *pState)
-{
-    if (!mGameStates.empty())
+    if (!m_gameStates.empty())
     {
-        if (mGameStates.back()->getStateID() != pState->getStateID())
-        {
-            if (mGameStates.back()->onExit())
-            {
-                delete mGameStates.back();
-                mGameStates.pop_back();
-            }
-        }
-    }
+        m_gameStates.back()->onExit();
 
-    // Push new state to back
-    mGameStates.push_back(pState);
-    mGameStates.back()->onEnter();
-}
+        delete m_gameStates.back();
 
-void GameStateMachine::popState()
-{
-    if (!mGameStates.empty())
-    {
-        if (mGameStates.back()->onExit())
-        {
-            delete mGameStates.back();
-            mGameStates.pop_back();
-        }
+        m_gameStates.clear();
     }
 }
 
 void GameStateMachine::update()
 {
-    if (!mGameStates.empty())
+    if (!m_gameStates.empty())
     {
-        mGameStates.back()->update();
+        m_gameStates.back()->update();
     }
 }
 
 void GameStateMachine::render()
 {
-    if (!mGameStates.empty())
+    if (!m_gameStates.empty())
     {
-        mGameStates.back()->render();
+        m_gameStates.back()->render();
     }
+}
+
+void GameStateMachine::pushState(GameState *pState)
+{
+    m_gameStates.push_back(pState);
+    m_gameStates.back()->onEnter();
+}
+
+void GameStateMachine::popState()
+{
+    if (!m_gameStates.empty())
+    {
+        m_gameStates.back()->onExit();
+        m_gameStates.pop_back();
+    }
+
+    m_gameStates.back()->resume();
+}
+
+void GameStateMachine::changeState(GameState *pState)
+{
+    if (!m_gameStates.empty())
+    {
+        if (m_gameStates.back()->getStateID() == pState->getStateID())
+        {
+            return; // do nothing
+        }
+
+        m_gameStates.back()->onExit();
+        m_gameStates.pop_back();
+    }
+
+    // initialise it
+    pState->onEnter();
+
+    // push back our new state
+    m_gameStates.push_back(pState);
 }

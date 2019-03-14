@@ -1,32 +1,26 @@
-NC_DIR 	:= headers
-SRC_DIR := src
-OBJ_DIR := build
+CC := g++ # This is the main compiler
+# CC := clang --analyze # and comment out the linker last line for sanity
+SRCDIR := src
+BUILDDIR := build
+TARGET := bin/runner
+ 
+SRCEXT := cpp
+SOURCES := $(shell find $(SRCDIR) -type f -name *.$(SRCEXT))
+OBJECTS := $(patsubst $(SRCDIR)/%,$(BUILDDIR)/%,$(SOURCES:.$(SRCEXT)=.o))
+CFLAGS := -g # -Wall
+LIB := -lSDL2 -lSDL2_image -lSDL2_ttf -ltinyxml -lz
+INC := -I include
 
-CC 			:= g++
-CPPFLAGS 	:= -I$(INC_DIR) -MMD -MP 	# linker flags
-CXXFLAGS 	:= -Wall 					# compiler flags
-LDLIBS 		:= -lSDL2 -lSDL2_image -lSDL2_ttf -ltinyxml -lz
+$(TARGET): $(OBJECTS)
+	@echo " Linking..."
+	@echo " $(CC) $^ -o $(TARGET) $(LIB)"; $(CC) $^ -o $(TARGET) $(LIB)
 
+$(BUILDDIR)/%.o: $(SRCDIR)/%.$(SRCEXT)
+	@mkdir -p $(BUILDDIR)
+	@echo " $(CC) $(CFLAGS) $(INC) -c -o $@ $<"; $(CC) $(CFLAGS) $(INC) -c -o $@ $<
 
-SOURCES := $(wildcard $(SRC_DIR)/*.cpp)
-OBJECTS := $(SOURCES:$(SRC_DIR)/%.cpp=$(OBJ_DIR)/%.o)
-DEPS    := $(wildcard $(OBJ_DIR)/*.d)
+clean:
+	@echo " Cleaning..."; 
+	@echo " $(RM) -r $(BUILDDIR) $(TARGET)"; $(RM) -r $(BUILDDIR) $(TARGET)
 
 .PHONY: clean
-
-run: $(OBJS)
-	$(CC) $(LDFLAGS) $^ $(LDLIBS) -o $@
-
-clean: ; $(RM) $(DEPS) $(OBJECTS)
-
-$(OBJS): $(OBJ_DIR)/%.o: $(SRC_DIR)/%.cpp
-	$(CXX) $(CXXFLAGS) $(CPPFLAGS) -c $(OUTPUT_OPTION) $<
-
-include $(DEPS)
-
-$(MAKEFILE_LIST): ;
-%:: %,v
-%:: RCS/%,v
-%:: RCS/%
-%:: s.%
-%:: SCCS/s.%%  

@@ -12,6 +12,7 @@ const std::string PlayState::s_playID = "PLAY";
 
 void PlayState::update()
 {
+    std::cout << "PlayState::update\n";
     if (m_loadingComplete && !m_exiting)
     {
         if (TheInputHandler::getInstance()->isKeyDown(SDL_SCANCODE_ESCAPE))
@@ -33,6 +34,7 @@ void PlayState::update()
 
 void PlayState::render()
 {
+    std::cout << "PlayState::render\n";
     if (m_loadingComplete)
     {
         if (pLevel != 0)

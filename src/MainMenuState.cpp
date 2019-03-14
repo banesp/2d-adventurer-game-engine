@@ -20,10 +20,9 @@ void MainMenuState::s_exitFromMenu()
     TheGame::getInstance()->quit();
 }
 
-// end callbacks
-
 void MainMenuState::update()
 {
+    std::cout << "MainMenuState::update\n";
     if (m_loadingComplete && !m_gameObjects.empty() && !m_exiting)
     {
         for (int i = 0; i < m_gameObjects.size(); i++)
@@ -36,10 +35,12 @@ void MainMenuState::update()
         //            s_menuToPlay();
         //        }
     }
+    std::cout << "MainMenuState::update after\n";
 }
 
 void MainMenuState::render()
 {
+    std::cout << "MainMenuState::render\n";
     if (m_loadingComplete && !m_gameObjects.empty())
     {
         for (int i = 0; i < m_gameObjects.size(); i++)
@@ -47,6 +48,7 @@ void MainMenuState::render()
             m_gameObjects[i]->draw();
         }
     }
+    std::cout << "MainMenuState::render after\n";
 }
 
 bool MainMenuState::onEnter()
