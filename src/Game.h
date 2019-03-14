@@ -81,4 +81,4 @@ private:
 
 typedef Game TheGame;
 
-#endif /* defined(__SDL_Game_Programming_Book__Game__) */
+#endif

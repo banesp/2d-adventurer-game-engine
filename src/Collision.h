@@ -1,11 +1,3 @@
-//
-//  Header.h
-//  SDL Game Programming Book
-//
-//  Created by shaun mitchell on 28/03/2013.
-//  Copyright (c) 2013 shaun mitchell. All rights reserved.
-//
-
 #ifndef SDL_Game_Programming_Book_Header_h
 #define SDL_Game_Programming_Book_Header_h
 

@@ -11,10 +11,7 @@
 class Jewel : public PlatformerObject
 {
   public:
-    Jewel()
-    {
-    }
-    virtual ~Jewel()
+    Jewel() : PlatformerObject()
     {
     }
 
@@ -22,7 +19,7 @@ class Jewel : public PlatformerObject
 
     virtual void update()
     {
-        // doing nothing for now..
+        m_currentFrame = int(((SDL_GetTicks() / (100)) % m_numFrames));
     }
 
     virtual void load(std::unique_ptr<LoaderParams> const &pParams)
@@ -34,8 +31,8 @@ class Jewel : public PlatformerObject
     {
         TheTextureManager::getInstance()->drawFrame(
             m_textureID,
-            (Uint32)m_position.getX(),
-            (Uint32)m_position.getY(),
+            (Uint32)m_position.getX() - TheCamera::getInstance()->getPosition().m_x,
+            (Uint32)m_position.getY() - TheCamera::getInstance()->getPosition().m_y,
             m_width,
             m_height,
             m_currentRow,

@@ -1,13 +1,5 @@
-//
-//  Snail.h
-//  SDLPlatformer
-//
-//  Created by shaun mitchell on 13/04/2013.
-//  Copyright (c) 2013 shaun mitchell. All rights reserved.
-//
-
-#ifndef SDLPlatformer_Snail_h
-#define SDLPlatformer_Snail_h
+#ifndef __SNAIL_H__
+#define __SNAIL_H__
 
 #include "Enemy.h"
 #include "GameObjectFactory.h"

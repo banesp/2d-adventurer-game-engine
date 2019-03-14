@@ -88,7 +88,7 @@ bool Game::init(const char *title, int xpos, int ypos, int width, int height, bo
 void Game::setCurrentLevel(int currentLevel)
 {
     m_currentLevel = currentLevel;
-    m_pGameStateMachine->changeState(new GameOverState());
+    m_pGameStateMachine->changeState(new MainMenuState());
     m_bLevelComplete = false;
 }
 
@@ -120,7 +120,7 @@ void Game::clean()
     m_pGameStateMachine = 0;
     delete m_pGameStateMachine;
 
-    TheTextureManager::getInstance()->clearTextureMap(); // clearFromTextureMap
+    TheTextureManager::getInstance()->clearTextureMap();
 
     SDL_DestroyWindow(m_pWindow);
     SDL_DestroyRenderer(m_pRenderer);

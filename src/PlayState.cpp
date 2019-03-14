@@ -19,11 +19,6 @@ void PlayState::update()
             TheGame::getInstance()->getStateMachine()->pushState(new PauseState());
         }
 
-        //        if(TheInputHandler::Instance()->getButtonState(0, 8))
-        //        {
-        //            TheGame::Instance()->getStateMachine()->pushState(new PauseState());
-        //        }
-
         if (TheGame::getInstance()->getPlayerLives() == 0)
         {
             TheGame::getInstance()->getStateMachine()->changeState(new GameOverState());
@@ -45,6 +40,7 @@ void PlayState::render()
             pLevel->render();
         }
 
+        // Not working properly
         for (int i = 0; i < TheGame::getInstance()->getPlayerLives(); i++)
         {
             TheTextureManager::getInstance()->drawFrame("lives", i * 30, 0, 32, 30, 0, 0, TheGame::getInstance()->getRenderer(), 0.0, 255);

@@ -1,11 +1,3 @@
-//
-//  ObjectLayer.cpp
-//  SDL Game Programming Book
-//
-//  Created by shaun mitchell on 10/03/2013.
-//  Copyright (c) 2013 shaun mitchell. All rights reserved.
-//
-
 #include "ObjectLayer.h"
 #include "GameObject.h"
 #include "Vector2D.h"
@@ -24,7 +16,7 @@ ObjectLayer::~ObjectLayer()
 
 void ObjectLayer::update(Level *pLevel)
 {
-    m_collisionManager.checkPlayerEnemyCollision(pLevel->getPlayer(), (const std::vector<GameObject *> &)m_gameObjects);
+    m_collisionManager.checkPlayerGameObjectCollision(pLevel->getPlayer(), (const std::vector<GameObject *> &)m_gameObjects);
     //m_collisionManager.checkPlayerTileCollision(pLevel->getPlayer(), pLevel->getCollidableLayers());
 
     // iterate through the objects
