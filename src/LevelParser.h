@@ -1,13 +1,5 @@
-//
-//  LevelParser.h
-//  SDL Game Programming Book
-//
-//  Created by shaun mitchell on 10/03/2013.
-//  Copyright (c) 2013 shaun mitchell. All rights reserved.
-//
-
-#ifndef __SDL_Game_Programming_Book__LevelParser__
-#define __SDL_Game_Programming_Book__LevelParser__
+#ifndef __LEVEL_PARSER_H__
+#define __LEVEL_PARSER_H__
 
 #include <iostream>
 #include <vector>
@@ -34,4 +26,4 @@ class LevelParser
     int m_height;
 };
 
-#endif /* defined(__SDL_Game_Programming_Book__LevelParser__) */
+#endif

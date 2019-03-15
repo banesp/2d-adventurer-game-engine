@@ -1,5 +1,5 @@
-#ifndef SDL_Game_Programming_Book_Header_h
-#define SDL_Game_Programming_Book_Header_h
+#ifndef __COLLISION_H__
+#define __COLLISION_H__
 
 #include "Vector2D.h"
 #include <SDL2/SDL.h>

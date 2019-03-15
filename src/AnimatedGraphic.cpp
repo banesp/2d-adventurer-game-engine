@@ -1,18 +1,9 @@
-//
-//  AnimatedGraphic.cpp
-//  SDL Game Programming Book
-//
-//  Created by shaun mitchell on 17/02/2013.
-//  Copyright (c) 2013 shaun mitchell. All rights reserved.
-//
-
 #include "AnimatedGraphic.h"
 
 using namespace std;
 
 AnimatedGraphic::AnimatedGraphic() : PlatformerObject()
 {
-    
 }
 
 void AnimatedGraphic::load(std::unique_ptr<LoaderParams> const &pParams)

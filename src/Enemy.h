@@ -6,14 +6,14 @@
 
 class Enemy : public PlatformerObject
 {
-  public:
-    virtual std::string type() { return "Enemy"; }
+public:
+  virtual std::string type() { return "Enemy"; }
 
-  protected:
-    int m_health;
+protected:
+  int m_health;
 
-    Enemy() : PlatformerObject() {}
-    virtual ~Enemy() {}
+  Enemy() : PlatformerObject() {}
+  virtual ~Enemy() {}
 };
 
 #endif

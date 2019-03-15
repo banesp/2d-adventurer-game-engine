@@ -9,8 +9,8 @@ class GameObject;
 
 class CollisionManager
 {
-  public:
-    void checkPlayerGameObjectCollision(Player *pPlayer, const std::vector<GameObject *> &objects);
+public:
+  void checkPlayerGameObjectCollision(Player *pPlayer, const std::vector<GameObject *> &objects);
 };
 
 #endif

@@ -15,6 +15,7 @@
 #include <iostream>
 
 Game *Game::s_pInstance = 0;
+
 Game::Game() : m_pWindow(0),
                m_pRenderer(0),
                m_bRunning(false),

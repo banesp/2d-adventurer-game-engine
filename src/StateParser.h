@@ -1,13 +1,5 @@
-//
-//  StateParser.h
-//  SDL Game Programming Book
-//
-//  Created by shaun mitchell on 24/02/2013.
-//  Copyright (c) 2013 shaun mitchell. All rights reserved.
-//
-
-#ifndef __SDL_Game_Programming_Book__StateParser__
-#define __SDL_Game_Programming_Book__StateParser__
+#ifndef __STATE_PARSER_H__
+#define __STATE_PARSER_H__
 
 #include <iostream>
 #include <vector>
@@ -30,4 +22,4 @@ private:
     void parseTextures(TiXmlElement* pStateRoot, std::vector<std::string> *pTextureIDs);
 };
 
-#endif /* defined(__SDL_Game_Programming_Book__StateParser__) */
+#endif

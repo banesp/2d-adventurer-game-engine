@@ -1,8 +1,8 @@
 #ifndef __GAME_STATE_MACHINE_H__
 #define __GAME_STATE_MACHINE_H__
 
-#include <vector>
 #include "GameState.h"
+#include <vector>
 
 class GameStateMachine
 {

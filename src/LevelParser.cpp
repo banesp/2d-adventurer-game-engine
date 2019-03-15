@@ -1,21 +1,13 @@
-//
-//  LevelParser.cpp
-//  SDL Game Programming Book
-//
-//  Created by shaun mitchell on 10/03/2013.
-//  Copyright (c) 2013 shaun mitchell. All rights reserved.
-//
-
-#include <string>
 #include "LevelParser.h"
 #include "TextureManager.h"
 #include "Game.h"
 #include "ObjectLayer.h"
 #include "TileLayer.h"
 #include "GameObjectFactory.h"
-#include "base64.h"
-#include "zlib.h"
 #include "Level.h"
+#include "base64.h"
+#include <zlib.h>
+#include <string>
 
 Level* LevelParser::parseLevel(const char *levelFile)
 {

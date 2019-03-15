@@ -1,11 +1,3 @@
-//
-//  GameOverState.cpp
-//  SDL Game Programming Book
-//
-//  Created by shaun mitchell on 17/02/2013.
-//  Copyright (c) 2013 shaun mitchell. All rights reserved.
-//
-
 #include "GameOverState.h"
 #include "MainMenuState.h"
 #include "PlayState.h"

@@ -2,7 +2,6 @@
 #include "Game.h"
 #include "InputHandler.h"
 #include "TileLayer.h"
-// #include "SoundManager.h"
 #include "TextureManager.h"
 #include "Camera.h"
 #include <SDL2/SDL.h>
@@ -152,7 +151,7 @@ void Player::handleAnimation()
   }
   else
   {
-    m_currentFrame = m_dyingCounter / m_numFrames; //int(((SDL_GetTicks() / (200)) % m_numFrames));
+    m_currentFrame = m_dyingCounter / m_numFrames;
   }
 }
 
@@ -341,7 +340,6 @@ void Player::handleInput()
 
   if (TheInputHandler::getInstance()->isKeyDown(SDL_SCANCODE_SPACE) && m_bCanJump && !m_bPressedJump)
   {
-    //TheSoundManager::Instance()->playSound("jump", 0);
     if (!m_bPressedJump)
     {
       m_bJumping = true;

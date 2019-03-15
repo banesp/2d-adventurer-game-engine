@@ -6,31 +6,31 @@
 
 class Camera
 {
-  public:
-    static Camera *getInstance()
+public:
+  static Camera *getInstance()
+  {
+    if (!s_pCamera)
     {
-        if (!s_pCamera)
-        {
-            s_pCamera = new Camera();
-        }
-
-        return s_pCamera;
+      s_pCamera = new Camera();
     }
 
-    void update(Vector2D velocity);
-    void setTarget(Vector2D *target) { m_pTarget = target; }
-    void setPosition(const Vector2D &position) { m_position = position; }
+    return s_pCamera;
+  }
 
-    const Vector2D getPosition() const;
+  void update(Vector2D velocity);
+  void setTarget(Vector2D *target) { m_pTarget = target; }
+  void setPosition(const Vector2D &position) { m_position = position; }
 
-  private:
-    static Camera *s_pCamera;
+  const Vector2D getPosition() const;
 
-    Vector2D *m_pTarget;
-    Vector2D m_position;
+private:
+  static Camera *s_pCamera;
 
-    Camera();
-    ~Camera();
+  Vector2D *m_pTarget;
+  Vector2D m_position;
+
+  Camera();
+  ~Camera();
 };
 
 typedef Camera TheCamera;

@@ -1,11 +1,3 @@
-//
-//  PauseState.cpp
-//  SDL Game Programming Book
-//
-//  Created by shaun mitchell on 16/02/2013.
-//  Copyright (c) 2013 shaun mitchell. All rights reserved.
-//
-
 #include "PauseState.h"
 #include "MainMenuState.h"
 #include "PlayState.h"
