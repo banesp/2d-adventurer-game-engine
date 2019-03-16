@@ -11,6 +11,7 @@
 #include "AnimatedGraphic.h"
 #include "Snail.h"
 #include "Jewel.h"
+#include "Adventurer.h"
 #include <stdio.h>
 #include <iostream>
 
@@ -21,20 +22,16 @@ Game::Game() : m_pWindow(0),
                m_bRunning(false),
                m_pGameStateMachine(0),
                m_playerLives(3),
-               m_bLevelComplete(false)
+               m_bLevelComplete(false),
+               m_currentLevel(1)
 {
-    // add some level files to an array
     m_levelFiles.push_back("assets/map1.tmx");
-
-    // start at this level
-    m_currentLevel = 1;
 }
 
 Game::~Game()
 {
-    // we must clean up after ourselves to prevent memory leaks
-    m_pRenderer = 0;
-    m_pWindow = 0;
+    m_pRenderer = NULL;
+    m_pWindow = NULL;
 }
 
 bool Game::init(const char *title, int xpos, int ypos, int width, int height, bool fullscreen)
@@ -77,6 +74,7 @@ bool Game::init(const char *title, int xpos, int ypos, int width, int height, bo
     TheGameObjectFactory::Instance()->registerType("ScrollingBackground", new ScrollingBackgroundCreator());
     TheGameObjectFactory::Instance()->registerType("Snail", new SnailCreator());
     TheGameObjectFactory::Instance()->registerType("Jewel", new JewelCreator());
+    TheGameObjectFactory::Instance()->registerType("Adventurer", new AdventurerCreator());
 
     m_bRunning = true;
 
@@ -126,7 +124,4 @@ void Game::clean()
     SDL_DestroyWindow(m_pWindow);
     SDL_DestroyRenderer(m_pRenderer);
     SDL_Quit();
-
-    m_pRenderer = 0;
-    m_pWindow = 0;
 }

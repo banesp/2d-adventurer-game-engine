@@ -36,8 +36,12 @@ void PlatformerObject::load(std::unique_ptr<LoaderParams> const &pParams)
 // draw the object to the screen
 void PlatformerObject::draw()
 {
-    TextureManager::getInstance()->drawFrame(m_textureID, (Uint32)m_position.getX(), (Uint32)m_position.getY(),
-                                          m_width, m_height, m_currentRow, m_currentFrame, TheGame::getInstance()->getRenderer(), m_angle, m_alpha);
+    TextureManager::getInstance()->drawFrame(
+        m_textureID,
+        (Uint32)m_position.getX(),
+        (Uint32)m_position.getY(),
+        m_width,
+        m_height, m_currentRow, m_currentFrame, TheGame::getInstance()->getRenderer(), m_angle, m_alpha);
 }
 
 // apply velocity to current position
