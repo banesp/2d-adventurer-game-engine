@@ -13,7 +13,6 @@ class ObjectLayer : public Layer
   public:
     virtual ~ObjectLayer();
 
-    // pass a level object through
     virtual void update(Level *pLevel);
     virtual void render();
 

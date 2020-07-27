@@ -42,48 +42,35 @@ void InputHandler::clean()
 
 void InputHandler::initialiseJoysticks()
 {
-  // if we haven't already initialised the joystick subystem, we will do it here
+  // Initialized joystick subsystem
   if (SDL_WasInit(SDL_INIT_JOYSTICK) == 0)
   {
     SDL_InitSubSystem(SDL_INIT_JOYSTICK);
   }
 
-  // get the number of joysticks, skip init if there aren't any
+  // get the number of joysticks
   if (SDL_NumJoysticks() > 0)
   {
     for (int i = 0; i < SDL_NumJoysticks(); i++)
     {
-      // create a new joystick
       SDL_Joystick *joy = SDL_JoystickOpen(i);
-
-      // if the joystick opened correctly we need to populate our arrays
       if (SDL_JoystickOpen(i))
       {
-        // push back into the array to be closed later
         m_joysticks.push_back(joy);
-
-        // create a pair of values for the axes, a vector for each stick
         m_joystickValues.push_back(std::make_pair(new Vector2D(0, 0), new Vector2D(0, 0)));
-
-        // create an array to hold the button values
         std::vector<bool> tempButtons;
-
-        // fill the array with a false value for each button
         for (int j = 0; j < SDL_JoystickNumButtons(joy); j++)
         {
           tempButtons.push_back(false);
         }
-        // push the button array into the button state array
         m_buttonStates.push_back(tempButtons);
       }
       else
       {
-        // if there was an error initialising a joystick we want to know about it
         std::cout << SDL_GetError();
       }
     }
 
-    // enable joystick events
     SDL_JoystickEventState(SDL_ENABLE);
     m_bJoysticksInitialised = true;
 
