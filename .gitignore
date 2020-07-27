@@ -2,5 +2,6 @@ build
 lib/*
 bin/*
 assets/*
+.vscode/*
 
 .DS_Store
